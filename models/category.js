@@ -4,7 +4,7 @@ const { sequelize } = require('../util/db')
 
 class Category extends Model { }
 
-Topic.init({
+Category.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
