@@ -1,9 +1,0 @@
-POST http://localhost:3001/api/notes
-Content-Type: application/json
-Authorization: bearer $2b$10$wgEH8UTe4ddcEBMSa9o6PuzYA9QW2ag2f4iyMALJh8rRR0d.AcFoi
-
-{
-  "title": "Get food",
-  "content": "Eggs, meat, fish",
-  "categoryId": 1
-}

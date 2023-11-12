@@ -2,20 +2,20 @@ const { DataTypes, QueryInterface } = require('sequelize')
 
 module.exports = {
     up: async ({ context: QueryInterface }) => {
-        await QueryInterface.createTable('categorys', {
+        await QueryInterface.createTable('categories', {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true
             },
             name: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING,
                 allowNull: false,
                 unique: true
             }
         })
     },
     down: async ({ context: QueryInterface }) => {
-        await QueryInterface.dropTable('categorys')
+        await QueryInterface.dropTable('categories')
     }
 }

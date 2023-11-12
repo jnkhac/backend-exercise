@@ -9,25 +9,25 @@ module.exports = {
                 autoIncrement: true
             },
             title: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING,
                 allowNull: false
             },
             desc: {
-                type: DataTypes.TEXT,
+                type: DataTypes.STRING,
                 allowNull: true
             },
             date: {
                 type: DataTypes.DATE
             },
-            userId: {
+            user_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: { model: 'users', key: 'id' }
             },
-            categoryId: {
+            category_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                references: { model: 'categorys', key: 'id' }
+                references: { model: 'categories', key: 'id' }
             }
         })
     },

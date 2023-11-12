@@ -5,14 +5,14 @@ const { PORT } = require('./util/config')
 const { connectToDatabase } = require('./util/db')
 
 const todosRouter = require('./controllers/todos')
-const categorysRouter = require('./controllers/categorys')
+const categorysRouter = require('./controllers/categories')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
 app.use(express.json())
 
 app.use('/api/todos', todosRouter)
-app.use('/api/categorys', categorysRouter)
+app.use('/api/categories', categorysRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 

@@ -25,10 +25,13 @@ const runMigrations = async () => {
     })
 }
 
-const rollbackMigration = async () => {
+const rollbackMigrations = async () => {
     await sequelize.authenticate()
     const migrator = new Umzug(migrationConfig)
-    await migrator.down()
+    const migrations = await migrator.down()
+    console.log('Migrations rolled back', {
+        files: migrations.map(mig => mig.name)
+    })
 }
 
 const connectToDatabase = async () => {
@@ -43,4 +46,4 @@ const connectToDatabase = async () => {
     return null
 }
 
-module.exports = { sequelize, rollbackMigration, connectToDatabase }
+module.exports = { sequelize, rollbackMigrations, connectToDatabase }

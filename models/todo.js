@@ -11,11 +11,11 @@ Todo.init({
         autoIncrement: true
     },
     title: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: false
     },
     desc: {
-        type: DataTypes.TEXT,
+        type: DataTypes.STRING,
         allowNull: true
     },
     date: {
@@ -29,7 +29,7 @@ Todo.init({
     categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'categorys', key: 'id' }
+        references: { model: 'categories', key: 'id' }
     }
 }, {
     sequelize,

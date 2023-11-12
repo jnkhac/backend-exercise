@@ -1,17 +1,23 @@
 const router = require('express').Router()
-const { tokenExtractor } = require('../util/middleware')
+const { Op } = require('sequelize')
 
+const { tokenExtractor } = require('../util/middleware')
 const { Todo, User } = require('../models')
 
-router.get('/', tokenExtractor, async (req, res) => {
-    const user = await User.findByPk(req.decodedToken.id)
+router.get('/', async (req, res) => {
+    const where = {}
+    if (req.query.category) {
+        where.categoryId = {
+            categoryId: req.query.category
+        }
+    }
+    if (req.query.desc) {
+        where.desc = {
+            [Op.substring]: req.query.desc
+        }
+    }
     const todos = await Todo.findAll({
-        include: [{
-            model: User,
-            where: {
-                id: user.id
-            }
-        }]
+        where
     })
     res.status(200).json(todos)
 })
@@ -20,7 +26,7 @@ router.post('/', tokenExtractor, async (req, res) => {
     try {
         const user = await User.findByPk(req.decodedToken.id)
         const todo = await Todo.create({ ...req.body, userId: user.id, date: new Date() })
-        res.status(201).json(todo)
+        res.status(200).json(todo)
     } catch (error) {
         res.status(400).json({ error })
     }
