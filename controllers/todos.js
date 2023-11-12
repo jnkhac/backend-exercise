@@ -7,9 +7,7 @@ const { Todo, User } = require('../models')
 router.get('/', async (req, res) => {
     const where = {}
     if (req.query.category) {
-        where.categoryId = {
-            categoryId: req.query.category
-        }
+        where.categoryId = req.query.category
     }
     if (req.query.desc) {
         where.desc = {
@@ -19,14 +17,14 @@ router.get('/', async (req, res) => {
     const todos = await Todo.findAll({
         where
     })
-    res.status(200).json(todos)
+    res.json(todos)
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
     try {
         const user = await User.findByPk(req.decodedToken.id)
         const todo = await Todo.create({ ...req.body, userId: user.id, date: new Date() })
-        res.status(200).json(todo)
+        res.json(todo)
     } catch (error) {
         res.status(400).json({ error })
     }
@@ -66,7 +64,7 @@ router.put('/:id', tokenExtractor, async (req, res) => {
         todo.title = req.body.title
         todo.description = req.body.description
         await todo.save()
-        res.status(200).json(todo)
+        res.json(todo)
     } else {
         res.status(404).end()
     }
