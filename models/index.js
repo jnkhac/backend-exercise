@@ -1,13 +1,13 @@
-const Todo = require('./todo')
-const User = require('./user')
-const Category = require('./category')
+const Todo = require('./todo');
+const User = require('./user');
+const Category = require('./category');
 
-User.hasMany(Todo)
-Todo.belongsTo(User)
+User.hasMany(Todo);
+Todo.belongsTo(User);
 
-Category.hasMany(Todo)
-Todo.belongsTo(Category)
+Category.hasMany(Todo);
+Todo.belongsTo(Category);
 
 module.exports = {
-    Todo, User, Category
-}
+  Todo, User, Category,
+};
