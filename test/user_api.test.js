@@ -63,7 +63,7 @@ describe('users test', () => {
       afterEach(async () => {
         await User.truncate({cascade: true});
       });
-      it('fails when creating user with an already existing username', (done) => {
+      it('fails when creating user with pre-existing username', (done) => {
         return chai.request(app)
             .post('/api/users')
             .send(testUser)

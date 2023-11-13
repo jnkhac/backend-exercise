@@ -2,5 +2,5 @@ POST http://localhost:3001/api/categories
 Content-Type: application/json
 
 {
-  "name": ""
+  "name": "yes"
 }
