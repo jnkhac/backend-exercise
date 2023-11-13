@@ -16,11 +16,8 @@ Todo.init({
     allowNull: false,
   },
   desc: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: true,
-  },
-  date: {
-    type: DataTypes.DATE,
   },
   userId: {
     type: DataTypes.INTEGER,

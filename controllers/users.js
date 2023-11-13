@@ -11,7 +11,11 @@ router.post('/', async (req, res) => {
     const user = await User.create({...req.body, password_hash: passwordHash});
     res.json(user);
   } catch (error) {
-    return res.status(400).json({error});
+    if (error.name === 'SequelizeUniqueConstraintError') {
+      return res.status(400).json({error: 'user already exists'});
+    } else {
+      return res.status(400).json({error: 'invalid parameters'});
+    }
   }
 });
 

@@ -46,4 +46,9 @@ const connectToDatabase = async () => {
   return null;
 };
 
-module.exports = {sequelize, rollbackMigrations, connectToDatabase};
+module.exports = {
+  sequelize,
+  runMigrations,
+  rollbackMigrations,
+  connectToDatabase,
+};

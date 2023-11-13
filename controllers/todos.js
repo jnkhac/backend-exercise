@@ -3,6 +3,8 @@ const {Op} = require('sequelize');
 
 const {tokenExtractor} = require('../util/middleware');
 const {Todo, User} = require('../models');
+const todoRules = require('../util/validationsRules/todoRules');
+const validator = require('../util/middleware/validator');
 
 router.get('/', async (req, res) => {
   const where = {};
@@ -28,16 +30,27 @@ router.post('/', tokenExtractor, async (req, res) => {
     });
     res.json(todo);
   } catch (error) {
-    res.status(400).json({error});
+    if (error.name === 'SequelizeForeignKeyConstraintError') {
+      return res.status(400).json({error: 'invalid categoryId'});
+    } else {
+      return res.status(400).json({error});
+    }
   }
 });
 
 const todoFinderByUser = async (req, res, next) => {
+  if (req.params.id < 1) {
+    return res.status(400).json({error: 'invalid todoId'});
+  }
   req.todo = await Todo.findByPk(req.params.id, {
     where: {
       userId: req.decodedToken.id,
     },
   });
+  const todo2 = await Todo.findByPk(req.params.id);
+  if (todo2.userId !== req.decodedToken.id) {
+    return res.status(403).json({error: 'unauthorized user'});
+  }
   next();
 };
 
@@ -50,6 +63,9 @@ router.delete('/:id', tokenExtractor, todoFinderByUser, async (req, res) => {
 });
 
 router.put('/:id', tokenExtractor, todoFinderByUser, async (req, res) => {
+  if (req.body.categoryId < 1) {
+    return res.status(400).json({error: 'invalid categoryId'});
+  }
   const todo = req.todo;
   if (todo) {
     todo.title = req.body.title || todo.title;

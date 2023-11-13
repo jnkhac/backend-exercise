@@ -7,7 +7,7 @@ router.post('/', async (req, res) => {
     const category = await Category.create(req.body);
     res.json(category);
   } catch (error) {
-    res.status(400).json({error});
+    return res.status(400).json({error});
   }
 });
 

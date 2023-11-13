@@ -1,9 +1,9 @@
-PUT http://localhost:3001/api/todos/4
+PUT http://localhost:3001/api/todos/3
 Content-Type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VybmFtZSIsImlkIjoxLCJpYXQiOjE2OTk2OTgxNTR9.4Lwg010X20rcsMA3WheSI2A9HocuW5-4VXCvkGI-SPI
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VybmFtZSIsImlkIjoxLCJpYXQiOjE2OTk2OTgxNTR9.4Lwg010X20rcsMA3WheSI2A9HocuW5-4VXCvkGI-SPL
 
 {
-  "title": "",
+  "title": "new",
   "desc": "sodo",
   "categoryId": "1"
 }
