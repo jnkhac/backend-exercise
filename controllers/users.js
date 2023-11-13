@@ -2,8 +2,10 @@ const bcrypt = require('bcrypt');
 const router = require('express').Router();
 
 const {User} = require('../models');
+const {bodyValidation} = require('../util/middleware');
+const userRules = require('../util/validationRules/userRules');
 
-router.post('/', async (req, res) => {
+router.post('/', bodyValidation(userRules), async (req, res) => {
   try {
     const {password} = req.body;
     const saltRounds = 10;
@@ -12,9 +14,9 @@ router.post('/', async (req, res) => {
     res.json(user);
   } catch (error) {
     if (error.name === 'SequelizeUniqueConstraintError') {
-      return res.status(400).json({error: 'user already exists'});
+      return res.status(400).json({error: 'username already exists'});
     } else {
-      return res.status(400).json({error: 'invalid parameters'});
+      return res.status(400).end();
     }
   }
 });

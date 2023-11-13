@@ -4,8 +4,10 @@ const router = require('express').Router();
 
 const {SECRET} = require('../util/config');
 const {User} = require('../models');
+const {bodyValidation} = require('../util/middleware');
+const loginRules = require('../util/validationRules/loginRules');
 
-router.post('/', async (req, res) => {
+router.post('/', bodyValidation(loginRules), async (req, res) => {
   const {username, password} = req.body;
   const user = await User.findOne({
     where: {

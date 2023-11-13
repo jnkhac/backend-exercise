@@ -19,8 +19,8 @@ const testUsers = [
   },
   {
     id: 2,
-    username: 'testname2',
-    name: 'testusername2',
+    name: 'testname2',
+    username: 'testusername2',
     password_hash:
     '$2b$10$qKGEdkhag/EKv9GH8pcFB.4SANgKNiiJd09pGURandXRtAto2pjaC',
   },

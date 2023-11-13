@@ -32,10 +32,11 @@ const invalidTodo = {
   categoryId: -1,
 };
 
-/** Checks todo item has specific properties.
+/** Checks that todo item has specific properties.
  * @param {Todo} todo item.
 */
 function todoPropertyChecker(todo) {
+  expect(todo).property('id');
   expect(todo).property('title');
   expect(todo).property('desc');
   expect(todo).property('userId');
@@ -128,7 +129,7 @@ describe('todos test', () => {
             .end((err, res) => {
               if (err) done(err);
               expect(res).to.have.status(400);
-              expect(res.body.error).to.be.equals('invalid categoryId');
+              expect(res.body.error).to.be.equals('invalid body value(s)');
               done();
             });
       });
@@ -188,6 +189,18 @@ describe('todos test', () => {
             .end((err, res) => {
               if (err) done(err);
               expect(res).to.have.status(400);
+              expect(res.body.error).to.be.equals('invalid params value(s)');
+              done();
+            });
+      });
+      it('fails when todoId is null', (done) => {
+        return chai.request(app)
+            .delete('/api/todos/' + null)
+            .set(header, validToken2)
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res).to.have.status(400);
+              expect(res.body.error).to.be.equals('invalid params value(s)');
               done();
             });
       });
@@ -197,7 +210,7 @@ describe('todos test', () => {
             .set(header, validToken2)
             .end((err, res) => {
               if (err) done(err);
-              expect(res).to.have.status(403);
+              expect(res).to.have.status(404);
               done();
             });
       });
@@ -228,6 +241,7 @@ describe('todos test', () => {
   describe('PUT /api/todos', () => {
     let temp;
     beforeEach(async () => {
+      await Todo.truncate();
       temp = await Todo.create({
         title: 'something',
         desc: 'something',
@@ -242,7 +256,7 @@ describe('todos test', () => {
             .set(header, validToken2)
             .end((err, res) => {
               if (err) done(err);
-              expect(res).to.have.status(403);
+              expect(res).to.have.status(404);
               done();
             });
       });
@@ -253,16 +267,28 @@ describe('todos test', () => {
             .end((err, res) => {
               if (err) done(err);
               expect(res).to.have.status(400);
+              expect(res.body.error).to.be.equals('invalid params value(s)');
               done();
             });
       });
-      it('fails when todoId is does not exist', () => {
+      it('fails when todoId is does not exist', (done) => {
         return chai.request(app)
             .put('/api/todos/' + (temp.id + 1))
             .set(header, validToken)
             .end((err, res) => {
               if (err) done(err);
               expect(res).to.have.status(404);
+              done();
+            });
+      });
+      it('fails when todoId is null', (done) => {
+        return chai.request(app)
+            .put('/api/todos/' + null)
+            .set(header, validToken)
+            .end((err, res) => {
+              if (err) done(err);
+              expect(res).to.have.status(400);
+              expect(res.body.error).to.be.equals('invalid params value(s)');
               done();
             });
       });

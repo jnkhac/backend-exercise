@@ -15,4 +15,26 @@ const tokenExtractor = (req, res, next) => {
   next();
 };
 
-module.exports = {tokenExtractor};
+const bodyValidation = (rules) => async (req, res, next) => {
+  try {
+    await rules.validate(req.body);
+    return next();
+  } catch (error) {
+    return res.status(400).json({error: 'invalid body value(s)'});
+  }
+};
+
+const paramsValidation = (rules) => async (req, res, next) => {
+  try {
+    await rules.validate(req.params);
+    return next();
+  } catch (error) {
+    return res.status(400).json({error: 'invalid params value(s)'});
+  }
+};
+
+module.exports = {
+  tokenExtractor,
+  bodyValidation,
+  paramsValidation,
+};

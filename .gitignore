@@ -3,5 +3,3 @@ node_modules
 
 test/apis
 test/hooks.js
-util/middleware
-util/validationsRules
