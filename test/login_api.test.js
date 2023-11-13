@@ -24,7 +24,7 @@ const testLogin = {
 };
 
 /** Checks that returned object from login has specific properties.
- * @param {Object} credentials.
+ * @param {Object} credentials to check.
 */
 function loginPropertyChecker(credentials) {
   expect(credentials).property('id');
@@ -73,7 +73,8 @@ describe('logins test', () => {
             .end((err, res) => {
               if (err) done(err);
               expect(res).to.have.status(401);
-              expect(res.body.error).to.be.equals('invalid username or password');
+              expect(res.body.error)
+                  .to.be.equals('invalid username or password');
               done();
             });
       });
@@ -87,7 +88,8 @@ describe('logins test', () => {
             .end((err, res) => {
               if (err) done(err);
               expect(res).to.have.status(401);
-              expect(res.body.error).to.be.equals('invalid username or password');
+              expect(res.body.error)
+                  .to.be.equals('invalid username or password');
               done();
             });
       });

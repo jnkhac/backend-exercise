@@ -45,7 +45,11 @@ router.post('/', tokenExtractor, bodyValidation(todoCreateRules), async (req, re
   }
 });
 
-const findTodoByPkAndValidateUser = async (id, userId) => {
+/**
+ * @param {number} id from todo
+ * @param {number} userId
+ */
+async function findTodoByPkAndValidateUser(id, userId) {
   const todo = await Todo.findByPk(id);
   if (!todo || todo.userId !== userId) {
     return null;

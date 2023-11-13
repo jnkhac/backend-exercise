@@ -44,7 +44,7 @@ describe('categories test', () => {
         await Category.truncate({cascade: true});
         await Category.create(testCategory);
       });
-      it('fails when creating category with an already existing name', (done) => {
+      it('fails when creating category with pre-existing name', (done) => {
         return chai.request(app)
             .post('/api/categories')
             .send(testCategory)
